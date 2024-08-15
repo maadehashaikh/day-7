@@ -15,18 +15,20 @@ app.get('/',function(req,res){
   })
 })
 
+app.get('/file/:filename',function(req,res){  
+    fs.readFile(`./files/${req.params.filename}`,"utf-8",function(err,filedata){
+      res.render('show')
+    })
+  })
+
+
+
 app.post('/create',function(req,res){ 
   fs.writeFile(`./files/${req.body.title.split(' ').join('')}.txt`, req.body.details ,function(err){
   res.redirect("/");
   });
   // console.log(req.body);   
   })
-
-  // app.post('/create',function(req,res){ 
-  //   console.log(typeof req.body.title, req.body.title);
-  //   })
-
-
 
 app.listen(3000,function(){
   console.log("Its working")
